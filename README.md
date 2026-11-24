@@ -1,38 +1,137 @@
-# ReminderHub — Dark Full-Stack Prototype
+# ReminderHub – Daily Reminder Management System
 
-This is a PHP + MySQL full-stack starter prototype with a premium dark interface.
+**A smart and user-friendly web application to organize daily tasks, manage reminders, and improve productivity.**
 
-## Requirements
-- PHP 8.1+ with PDO MySQL enabled
-- MySQL 8+ or compatible MariaDB
-- Apache (XAMPP is suitable)
+## About the Project
 
-## Install with XAMPP (Windows)
-1. Copy the `ReminderHub-FullStack` folder into `C:\xampp\htdocs\`.
-2. Start **Apache** and **MySQL** in XAMPP Control Panel.
-3. Open `http://localhost/phpmyadmin`.
-4. Import `database/schema.sql` using the Import tab.
-5. If your local MySQL credentials are not the XAMPP defaults, edit the connection settings in `config/bootstrap.php` or set the `REMINDERHUB_DB_HOST`, `REMINDERHUB_DB_NAME`, `REMINDERHUB_DB_USER`, and `REMINDERHUB_DB_PASS` environment variables.
-6. Visit `http://localhost/ReminderHub-FullStack/register.php` and create your account.
+ReminderHub is a full-stack web-based reminder management system developed using PHP, MySQL, HTML, CSS, and JavaScript.
 
-## Implemented in this prototype
-- Dark responsive dashboard with a light/dark toggle
-- Registration and login using PHP sessions
-- Password hashing with `password_hash()` and verification with `password_verify()`
-- Session ID regeneration after login/registration
-- CSRF token checks for state-changing API requests
-- PDO prepared statements for database queries
-- Server-side validation for reminder fields
-- Per-user reminder access checks for list, update and delete
-- Add, list, complete, and delete reminders
-- Browser-side text inserted using `textContent` for reminder titles/notes
+It allows users to create personal accounts, log in securely, manage daily reminders, track completed tasks, and organize their schedules through a clean and responsive dashboard.
 
-## Not implemented yet
-- Email, browser push, SMS or mobile notifications
-- Recurring reminder scheduler
-- Password reset / email verification
-- Rate limiting and account lockout
-- Production deployment, HTTPS configuration and security review
-- TypeScript build pipeline (current browser UI uses plain JavaScript; TypeScript is a planned next learning step)
+## Features
 
-This is a learning prototype, not a production-audited service. Use HTTPS in deployment, configure a dedicated least-privilege database account, and review security before public launch.
+- User Registration and Login
+- Secure Session-Based Authentication
+- Create New Reminders
+- Edit and Delete Reminders
+- Mark Reminders as Completed
+- Dashboard with Reminder Statistics
+- Today's and Upcoming Reminders
+- Pending and Completed Reminders
+- Search and Sort Reminders
+- Reminder Categories and Priority Levels
+- Responsive User Interface
+- Light and Dark Theme Support
+- Browser Notification and Service Worker Support
+
+## Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| HTML5 | Website structure |
+| CSS3 | Styling and responsive design |
+| JavaScript | Frontend functionality |
+| PHP | Backend development |
+| MySQL | Database management |
+| XAMPP | Local development server |
+| Git and GitHub | Version control and project hosting |
+
+## Project Structure
+
+```text
+ReminderHub-FullStack/
+│
+├── api/
+│   ├── auth.php
+│   ├── reminders.php
+│   └── push-subscribe.php
+│
+├── assets/
+│   ├── css/
+│   │   └── app.css
+│   └── js/
+│       ├── app.js
+│       └── auth.js
+│
+├── config/
+│   ├── bootstrap.php
+│   └── page.php
+│
+├── database/
+│   └── schema.sql
+│
+├── index.php
+├── login.php
+├── register.php
+├── logout.php
+├── service-worker.js
+└── README.md
+```
+
+## Installation and Setup
+
+### Requirements
+
+- Windows operating system
+- XAMPP
+- PHP
+- MySQL
+- Web browser
+
+### Step 1: Download the Project
+
+Clone or download this GitHub repository into your XAMPP `htdocs` folder.
+
+### Step 2: Start XAMPP
+
+Start Apache and MySQL.
+
+### Step 3: Create the Database
+
+1. Open phpMyAdmin or MySQL Workbench.
+2. Create a database named `reminderhub`.
+3. Import the `database/schema.sql` file.
+
+### Step 4: Configure Database Connection
+
+Create a private `config/local.php` file on your computer with your own database credentials.
+
+Do not upload this private file to GitHub.
+
+### Step 5: Run the Project
+
+Open your browser and visit:
+
+```text
+http://localhost/ReminderHub-Website-Project/ReminderHub-FullStack/
+```
+
+## Database
+
+The project uses MySQL to store user accounts, reminders, and push subscription information.
+
+The database structure is provided in:
+
+`database/schema.sql`
+
+## Future Enhancements
+
+- Automated scheduled reminder delivery
+- Advanced notification management
+- Email reminders
+- Mobile application support
+- Cloud deployment
+
+## Developer
+
+**GitHub:** [jaindravya345-dot](https://github.com/jaindravya345-dot)
+
+**Project Name:** ReminderHub – Daily Reminder Management System
+
+## License
+
+This project is developed for educational and learning purposes.
+
+---
+
+**ReminderHub – A calmer way to keep life in order.**
