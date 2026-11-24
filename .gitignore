@@ -1,0 +1,21 @@
+
+# Private configuration
+/config/local.php
+/config/secrets.php
+.env
+.env.*
+/private/
+/reminderhub-vapid.php
+
+# Private VAPID generator
+/generate-vapid.php
+
+# Dependencies and temporary files
+/vendor/
+/node_modules/
+*.zip
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
