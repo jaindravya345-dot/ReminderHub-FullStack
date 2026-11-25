@@ -16,6 +16,20 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 
+// Keep API failures in JSON format instead of leaking PHP's HTML error output
+// into fetch(...).json() calls. Detailed errors go to the server log only.
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+set_exception_handler(static function (Throwable $e): void {
+    error_log('ReminderHub uncaught exception: ' . $e->getMessage());
+    if (!headers_sent()) {
+        http_response_code(500);
+        header('Content-Type: application/json; charset=utf-8');
+    }
+    echo json_encode(['ok' => false, 'error' => 'The server could not complete this request. Please try again.'], JSON_UNESCAPED_UNICODE);
+    exit;
+});
+
 function json_response(array $data, int $status = 200): never {
     http_response_code($status);
     header('Content-Type: application/json; charset=utf-8');
