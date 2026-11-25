@@ -135,3 +135,39 @@ This project is developed for educational and learning purposes.
 ---
 
 **ReminderHub – A calmer way to keep life in order.**
+
+## Deployment with Docker
+
+This repository now includes a Dockerfile, Docker Compose configuration, an environment-variable example, and a database health endpoint.
+
+### Run locally with Docker
+
+1. Install Docker Desktop.
+2. Copy `.env.example` to `.env` and replace both database passwords with strong values. Keep `.env` private.
+3. Start the app:
+
+   ```bash
+   docker compose up --build -d
+   ```
+
+4. Open `http://localhost:8080`.
+5. Check the service at `http://localhost:8080/api/health.php`. A healthy response includes `"ok":true`.
+
+The Compose database uses a persistent named volume. The schema is imported automatically on the first initialization of an empty volume. If you already have a database, apply the updated `database/schema.sql` separately; the initialization script does not rerun against an existing volume.
+
+### Production deployment checklist
+
+- Deploy the container to a PHP-compatible container host (or a platform that supports Docker images).
+- Use a managed MySQL database with TLS/network restrictions and automated backups.
+- Set `REMINDERHUB_DB_HOST`, `REMINDERHUB_DB_NAME`, `REMINDERHUB_DB_USER`, and `REMINDERHUB_DB_PASS` as provider secrets/environment variables.
+- Use HTTPS. The app marks session cookies Secure when HTTPS is detected by PHP.
+- Keep secrets out of Git and out of the container image.
+- Confirm the health endpoint, registration, login/logout, reminder create/edit/delete/complete, and account isolation after deployment.
+- Configure a persistent/shared PHP session handler if the host uses multiple instances or ephemeral local storage. The current app uses PHP's default file-based sessions.
+- Browser notifications require HTTPS (except localhost). The current push-subscribe endpoint stores subscriptions, but a server-side Web Push sender and scheduled delivery worker are not included yet; don't advertise automatic push delivery as operational until those are implemented and configured.
+
+### Important limitations before public launch
+
+- The current application uses PHP file sessions. Single-instance deployments with persistent local storage may work, but multi-instance/serverless deployments need Redis or a database-backed session handler.
+- Set up migrations/backups and apply the new `push_subscriptions` table to existing databases.
+- Run a full functional and security test against the production database before inviting users.

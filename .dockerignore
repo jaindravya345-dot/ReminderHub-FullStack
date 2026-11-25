@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+config/local.php
+config/secrets.php
+private
+vendor
+node_modules
+*.zip
+*.log
+Thumbs.db
+.DS_Store
