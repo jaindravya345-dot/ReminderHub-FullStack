@@ -77,8 +77,10 @@ $name = getenv('REMINDERHUB_DB_NAME') ?: ($localConfig['name'] ?? 'reminderhub')
 $user = getenv('REMINDERHUB_DB_USER') ?: ($localConfig['user'] ?? 'reminderhub_app');
 $pass = getenv('REMINDERHUB_DB_PASS') ?: ($localConfig['pass'] ?? '');
 $port = getenv('REMINDERHUB_DB_PORT') ?: ($localConfig['port'] ?? null);
-if (!$port && str_contains($host, ':')) {
-    [$host, $port] = explode(':', $host, 2);
+if (str_contains($host, ':')) {
+    [$hostOnly, $hostPort] = explode(':', $host, 2);
+    $host = $hostOnly;
+    $port = $port ?: $hostPort;
 }
 $portPart = $port ? ";port={$port}" : '';
 
