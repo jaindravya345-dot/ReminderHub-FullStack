@@ -62,8 +62,13 @@ $host = getenv('REMINDERHUB_DB_HOST') ?: ($localConfig['host'] ?? '127.0.0.1');
 $name = getenv('REMINDERHUB_DB_NAME') ?: ($localConfig['name'] ?? 'reminderhub');
 $user = getenv('REMINDERHUB_DB_USER') ?: ($localConfig['user'] ?? 'reminderhub_app');
 $pass = getenv('REMINDERHUB_DB_PASS') ?: ($localConfig['pass'] ?? '');
+$port = getenv('REMINDERHUB_DB_PORT') ?: ($localConfig['port'] ?? null);
+if (!$port && str_contains($host, ':')) {
+    [$host, $port] = explode(':', $host, 2);
+}
+$portPart = $port ? ";port={$port}" : '';
 
-    $dsn = "mysql:host={$host};dbname={$name};charset=utf8mb4";
+    $dsn = "mysql:host={$host}{$portPart};dbname={$name};charset=utf8mb4";
     try {
         $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
