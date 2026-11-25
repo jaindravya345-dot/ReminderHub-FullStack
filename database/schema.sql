@@ -24,3 +24,16 @@ CREATE TABLE IF NOT EXISTS reminders (
   INDEX idx_reminders_user_schedule (user_id, reminder_date, reminder_time),
   CONSTRAINT fk_reminders_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS push_subscriptions (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT UNSIGNED NOT NULL,
+  endpoint VARCHAR(2048) NOT NULL,
+  public_key VARCHAR(255) NOT NULL,
+  auth_token VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_push_subscription_endpoint (endpoint(191)),
+  INDEX idx_push_subscriptions_user (user_id),
+  CONSTRAINT fk_push_subscriptions_user
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
