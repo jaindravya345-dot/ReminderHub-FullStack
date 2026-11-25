@@ -1,4 +1,3 @@
-
 <?php require_once __DIR__ . '/config/page.php'; ?>
 <!doctype html>
 <html lang="en">
